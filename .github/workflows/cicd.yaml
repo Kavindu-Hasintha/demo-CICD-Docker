@@ -21,17 +21,17 @@ jobs:
 #        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
       - name: Build docker image
-        run: docker build -t demo/demo-cicdwithdocker .
+        run: docker build -t demospringbootcicd/demo-cicdwithdocker .
       - name: Publish image to docker hub
-        run: docker push demo/demo-cicdwithdocker:latest
+        run: docker push demospringbootcicd/demo-cicdwithdocker:latest
 
   deploy:
     needs: build
     runs-on: [aws-ec2]
     steps:
       - name: Pull Image from docker hub
-        run: docker pull demo/demo-cicdwithdocker:latest
+        run: docker pull demospringbootcicd/demo-cicdwithdocker:latest
       - name: Delete old container
         run: docker rm -f springboot-container
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name springboot-container demo/demo-cicdwithdocker
+        run: docker run -d -p 8080:8080 --name springboot-container demospringbootcicd/demo-cicdwithdocker
