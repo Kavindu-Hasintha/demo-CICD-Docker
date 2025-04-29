@@ -14,4 +14,10 @@ public class DemoController {
         String response = "Hello World! -> v1.0";
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/hi")
+    public ResponseEntity<String> getHi() {
+        String response = "Hi -> v1.1...";
+        return ResponseEntity.ok(response);
+    }
 }
